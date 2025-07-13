@@ -35,6 +35,21 @@ a {
   font-size: 1.2rem;
   margin: 10px 0 20px;
 }
+.download-btn {
+  display: inline-block;
+  background-color: #007BFF;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s ease;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}
+
 
 .btn {
   background: #fca311;
