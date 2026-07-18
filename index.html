@@ -1,71 +1,416 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Ankit Tiwari | Java Full Stack Developer</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ankit Tiwari — Java Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #FAF9F5;
+    --paper-dim: #F1EFE7;
+    --ink: #16213A;
+    --ink-soft: #4A5470;
+    --line: #DEDBCF;
+    --amber: #D97E1E;
+    --amber-dim: #F4E3CB;
+    --teal: #1F6F78;
+    --ok: #2E7D4F;
+    --mono: 'JetBrains Mono', monospace;
+    --sans: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.6;
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 48px 48px;
+    background-attachment:fixed;
+    background-position: -1px -1px;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior:auto !important; }
+  }
+
+  a{ color:inherit; text-decoration:none; }
+  a:focus-visible, button:focus-visible{ outline:2px solid var(--teal); outline-offset:3px; }
+
+  .wrap{ max-width: 920px; margin:0 auto; padding: 0 28px; }
+
+  /* ---------- NAV ---------- */
+  .nav{
+    position:sticky; top:0; z-index:50;
+    background:rgba(250,249,245,0.88);
+    backdrop-filter: blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav .wrap{ display:flex; align-items:center; justify-content:space-between; height:60px; }
+  .nav-logo{ font-family:var(--mono); font-weight:700; font-size:15px; letter-spacing:0.02em; }
+  .nav-logo span{ color:var(--amber); }
+  .nav-links{ display:flex; gap:28px; font-family:var(--mono); font-size:13px; }
+  .nav-links a{ color:var(--ink-soft); transition:color .15s; position:relative; }
+  .nav-links a:hover{ color:var(--ink); }
+  .nav-status{
+    display:flex; align-items:center; gap:6px; font-family:var(--mono); font-size:12px; color:var(--ok);
+  }
+  .dot{ width:7px; height:7px; border-radius:50%; background:var(--ok); box-shadow:0 0 0 3px rgba(46,125,79,0.15); animation: pulse 2.4s infinite; }
+  @keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:.4; } }
+
+  @media (max-width: 640px){ .nav-links{ display:none; } }
+
+  /* ---------- HERO ---------- */
+  .hero{ padding: 80px 0 60px; }
+  .terminal{
+    background:var(--ink);
+    border-radius:10px;
+    box-shadow: 0 20px 50px -20px rgba(22,33,58,0.35);
+    overflow:hidden;
+    margin-bottom:40px;
+  }
+  .terminal-bar{
+    display:flex; align-items:center; gap:8px;
+    padding:12px 16px;
+    background:rgba(255,255,255,0.04);
+    border-bottom:1px solid rgba(255,255,255,0.08);
+  }
+  .terminal-bar .tdot{ width:10px; height:10px; border-radius:50%; }
+  .terminal-bar .tdot:nth-child(1){ background:#E8555A; }
+  .terminal-bar .tdot:nth-child(2){ background:#E8B024; }
+  .terminal-bar .tdot:nth-child(3){ background:#3FB07F; }
+  .terminal-title{ margin-left:8px; font-family:var(--mono); font-size:12px; color:rgba(255,255,255,0.4); }
+  .terminal-body{ padding:22px 20px 26px; font-family:var(--mono); font-size:13.5px; color:#B9C4D6; }
+  .terminal-body .req{ color:#8FD6A8; }
+  .terminal-body .path{ color:#F2C879; }
+  .terminal-body .status{ color:#7FC8E8; }
+  .terminal-body .line{ margin-bottom:6px; white-space:pre-wrap; }
+  .cursor{ display:inline-block; width:8px; height:14px; background:#B9C4D6; vertical-align:middle; animation: blink 1s steps(1) infinite; }
+  @keyframes blink{ 50%{ opacity:0; } }
+
+  .hero h1{
+    font-family:var(--mono);
+    font-weight:800;
+    font-size: clamp(32px, 6vw, 54px);
+    letter-spacing:-0.02em;
+    line-height:1.08;
+    margin-bottom:14px;
+  }
+  .hero h1 .accent{ color:var(--amber); }
+  .hero .role{
+    font-family:var(--mono); font-size:15px; color:var(--teal); font-weight:600;
+    margin-bottom:20px; letter-spacing:0.01em;
+  }
+  .hero p.lede{
+    max-width:600px; font-size:17px; color:var(--ink-soft); margin-bottom:30px;
+  }
+  .hero-links{ display:flex; flex-wrap:wrap; gap:14px; }
+  .btn{
+    font-family:var(--mono); font-size:13px; font-weight:600;
+    padding:11px 20px; border-radius:6px; border:1.5px solid var(--ink);
+    display:inline-flex; align-items:center; gap:8px;
+    transition: transform .15s, box-shadow .15s;
+  }
+  .btn:hover{ transform:translateY(-2px); box-shadow:3px 3px 0 var(--ink); }
+  .btn-primary{ background:var(--ink); color:var(--paper); }
+  .btn-primary:hover{ box-shadow:3px 3px 0 var(--amber); }
+  .btn-ghost{ background:transparent; color:var(--ink); }
+
+  /* ---------- SECTION HEADERS ---------- */
+  section{ padding: 54px 0; border-top:1px solid var(--line); }
+  .sec-head{ display:flex; align-items:baseline; gap:12px; margin-bottom:30px; }
+  .sec-tag{ font-family:var(--mono); font-size:12px; color:var(--amber); font-weight:700; }
+  .sec-title{ font-family:var(--mono); font-size:22px; font-weight:700; letter-spacing:-0.01em; }
+
+  /* ---------- ABOUT ---------- */
+  .about-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap:40px; }
+  .about-grid p{ color:var(--ink-soft); font-size:15.5px; margin-bottom:14px; }
+  .about-grid strong{ color:var(--ink); }
+  .stat-card{
+    background:var(--paper-dim); border:1px solid var(--line); border-radius:8px;
+    padding:16px 18px; margin-bottom:12px;
+  }
+  .stat-card .num{ font-family:var(--mono); font-size:24px; font-weight:800; color:var(--ink); }
+  .stat-card .label{ font-size:12.5px; color:var(--ink-soft); margin-top:2px; }
+  @media (max-width: 720px){ .about-grid{ grid-template-columns:1fr; } }
+
+  /* ---------- SKILLS as schema table ---------- */
+  .schema{
+    border:1px solid var(--line); border-radius:8px; overflow:hidden;
+    background:#fff;
+  }
+  .schema-row{ display:grid; grid-template-columns: 190px 1fr; border-top:1px solid var(--line); }
+  .schema-row:first-child{ border-top:none; }
+  .schema-key{
+    font-family:var(--mono); font-size:12.5px; font-weight:700; color:var(--teal);
+    padding:14px 16px; background:var(--paper-dim); border-right:1px solid var(--line);
+  }
+  .schema-val{ padding:14px 16px; font-size:14px; color:var(--ink-soft); display:flex; flex-wrap:wrap; gap:8px; align-items:center; }
+  .chip{
+    font-family:var(--mono); font-size:12px; padding:3px 9px; border-radius:4px;
+    background:var(--amber-dim); color:#8A4E0E; border:1px solid #EBCFA1;
+  }
+  @media (max-width: 640px){ .schema-row{ grid-template-columns:1fr; } .schema-key{ border-right:none; border-bottom:1px solid var(--line); } }
+
+  /* ---------- EXPERIENCE as commit log ---------- */
+  .log{ position:relative; padding-left:26px; }
+  .log::before{ content:''; position:absolute; left:6px; top:6px; bottom:6px; width:2px; background:var(--line); }
+  .log-entry{ position:relative; margin-bottom:32px; }
+  .log-entry:last-child{ margin-bottom:0; }
+  .log-entry::before{
+    content:''; position:absolute; left:-26px; top:4px; width:11px; height:11px;
+    border-radius:50%; background:var(--paper); border:2.5px solid var(--amber);
+  }
+  .log-hash{ font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); opacity:.7; }
+  .log-title{ font-family:var(--mono); font-weight:700; font-size:16px; margin:4px 0 2px; }
+  .log-meta{ font-size:13px; color:var(--teal); font-family:var(--mono); margin-bottom:10px; }
+  .log-entry ul{ list-style:none; }
+  .log-entry li{ font-size:14.5px; color:var(--ink-soft); margin-bottom:7px; padding-left:18px; position:relative; }
+  .log-entry li::before{ content:'diff'; display:none; }
+  .log-entry li::after{ content:'+'; position:absolute; left:0; color:var(--ok); font-family:var(--mono); font-weight:700; }
+
+  /* ---------- PROJECTS as endpoints ---------- */
+  .endpoint{
+    border:1px solid var(--line); border-radius:8px; background:#fff; margin-bottom:18px;
+    overflow:hidden; transition: box-shadow .15s, transform .15s;
+  }
+  .endpoint:hover{ box-shadow: 4px 4px 0 var(--line); transform:translate(-2px,-2px); }
+  .endpoint-head{ display:flex; align-items:center; gap:12px; padding:16px 18px; flex-wrap:wrap; }
+  .method{
+    font-family:var(--mono); font-size:12px; font-weight:800; padding:4px 9px; border-radius:4px;
+    background:var(--teal); color:#fff; letter-spacing:0.03em;
+  }
+  .method.post{ background:var(--amber); }
+  .endpoint-path{ font-family:var(--mono); font-size:14.5px; font-weight:600; }
+  .endpoint-status{
+    margin-left:auto; font-family:var(--mono); font-size:12px; font-weight:700; color:var(--ok);
+    display:flex; align-items:center; gap:6px;
+  }
+  .endpoint-status.pending{ color:#B08A2E; }
+  .endpoint-body{ padding:0 18px 20px; }
+  .endpoint-body p{ font-size:14.5px; color:var(--ink-soft); margin-bottom:14px; }
+  .stack-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:16px; }
+  .endpoint-links{ display:flex; gap:16px; font-family:var(--mono); font-size:12.5px; }
+  .endpoint-links a{ color:var(--teal); font-weight:600; border-bottom:1px solid transparent; }
+  .endpoint-links a:hover{ border-bottom-color:var(--teal); }
+  .endpoint-links .disabled{ color:#B7B2A2; cursor:default; }
+
+  /* ---------- EDUCATION / CERTS ---------- */
+  .edu-card{ border:1px solid var(--line); border-radius:8px; background:#fff; padding:18px 20px; margin-bottom:14px; }
+  .edu-card .school{ font-family:var(--mono); font-weight:700; font-size:15px; }
+  .edu-card .meta{ font-size:13.5px; color:var(--ink-soft); margin-top:4px; }
+  .cert-list{ display:grid; gap:10px; margin-top:8px; }
+  .cert-item{
+    display:flex; align-items:center; gap:10px; font-size:14px; color:var(--ink-soft);
+    background:var(--paper-dim); border:1px solid var(--line); border-radius:6px; padding:11px 14px;
+  }
+  .cert-item .badge{ font-family:var(--mono); font-size:11px; font-weight:700; color:var(--amber); }
+
+  /* ---------- FOOTER / CONTACT ---------- */
+  footer{ border-top:1px solid var(--line); padding:50px 0 40px; }
+  .config{
+    background:var(--ink); border-radius:10px; padding:26px 28px; color:#B9C4D6;
+    font-family:var(--mono); font-size:13.5px;
+  }
+  .config .k{ color:#7FC8E8; }
+  .config .s{ color:#F2C879; }
+  .config .c{ color:rgba(255,255,255,0.35); }
+  .config-line{ margin-bottom:6px; }
+  .footer-links{ display:flex; gap:22px; margin-top:22px; flex-wrap:wrap; font-family:var(--mono); font-size:13px; }
+  .footer-links a{ color:var(--teal); font-weight:600; }
+  .footer-links a:hover{ text-decoration:underline; }
+  .footer-note{ margin-top:26px; font-size:12.5px; color:var(--ink-soft); opacity:.7; }
+
+  ::selection{ background:var(--amber-dim); color:var(--ink); }
+</style>
 </head>
 <body>
 
-  <!-- Hero Section -->
-  <section class="hero">
-    <h1>Ankit Tiwari</h1>
-    <p>Java Full Stack Developer | Spring Boot | REST APIs</p>
-    <a href="#contact" class="btn">Contact Me</a>
-  </section>
-  <section>
-<a href="resume.pdf" download class="download-btn">📄 Download Resume</a>
-  </section>
-  <!-- About Section -->
-  <section class="about">
-    <h2>About Me</h2>
-    <p>I am a final year B.Tech student passionate about Fullstack development with Java, Spring Boot,React and building real-world projects. I'm currently learning REST APIs, microservices, and frontend with JavaScript.</p>
-  </section>
+  <nav class="nav">
+    <div class="wrap">
+      <div class="nav-logo">ankit<span>.</span>tiwari</div>
+      <div class="nav-links">
+        <a href="#about">about</a>
+        <a href="#skills">skills</a>
+        <a href="#experience">experience</a>
+        <a href="#projects">projects</a>
+        <a href="#contact">contact</a>
+      </div>
+      <div class="nav-status"><span class="dot"></span> available</div>
+    </div>
+  </nav>
 
-  <!-- Skills Section -->
-  <section class="skills">
-    <h2>Skills</h2>
-    <div class="skill-tags">
-      <span>Java</span>
-      <span>Spring Boot</span>
-      <span>REST API</span>
-      <span>Hibernate ORM</span>
-      <span>MySQL</span>
-      <span>MongoDB</span>
-      <span>React</span>
-      <span>Git</span>
-      <span>Postman</span>
-      <span>JavaScript</span>
+  <header class="hero">
+    <div class="wrap">
+      <div class="terminal">
+        <div class="terminal-bar">
+          <span class="tdot"></span><span class="tdot"></span><span class="tdot"></span>
+          <span class="terminal-title">whoami.sh</span>
+        </div>
+        <div class="terminal-body">
+          <div class="line"><span class="req">GET</span> <span class="path">/developer/ankit-tiwari</span></div>
+          <div class="line"><span class="status">200 OK</span> — role: Java Developer, experience: entry-level, stack: Spring Boot / MySQL</div>
+          <div class="line">location: Mumbai, Maharashtra &nbsp; status: open to work<span class="cursor"></span></div>
+        </div>
+      </div>
+
+      <h1>Ankit Tiwari <span class="accent">/</span> backend<br>built to hold up.</h1>
+      <div class="role">JAVA DEVELOPER — SPRING BOOT · REST APIS · MYSQL</div>
+      <p class="lede">I build backend services that don't fall over — REST APIs, database schemas, and role-based systems, shipped with the same care I'd want from someone else's code.</p>
+      <div class="hero-links">
+        <a class="btn btn-primary" href="#projects">View projects →</a>
+        <a class="btn btn-ghost" href="mailto:ankit.t9099@gmail.com">Say hello</a>
+        <a class="btn btn-ghost" href="https://github.com/Tiwarianky" target="_blank" rel="noopener">GitHub</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="about">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag">01</span><span class="sec-title">about</span></div>
+      <div class="about-grid">
+        <div>
+          <p>I'm an entry-level <strong>Java Developer</strong> with hands-on experience building backend services in <strong>Spring Boot</strong>, working with <strong>Hibernate/JPA</strong> and <strong>MySQL</strong> to move data reliably between systems.</p>
+          <p>During a 6-month internship, I shipped 8+ production REST APIs for inventory and order management — real endpoints, real data, real constraints. Outside of that, I've built two independent projects covering authentication, role-based access, and CRUD systems end to end.</p>
+          <p>I'm comfortable in <strong>Agile</strong> teams, working with Git-based version control, and I'm currently deepening my knowledge of Microservices, Docker, and AWS.</p>
+        </div>
+        <div>
+          <div class="stat-card"><div class="num">8+</div><div class="label">REST APIs shipped in production</div></div>
+          <div class="stat-card"><div class="num">2</div><div class="label">independent full-stack projects</div></div>
+          <div class="stat-card"><div class="num">8.50</div><div class="label">CGPA, B.Tech Computer Science</div></div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- Projects Section -->
-  <section class="projects">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="project-card">
-        <h3>Banking Management System</h3>
-        <p>Spring Boot project for managing customer accounts, transactions and more.</p>
-      </div>
-      <div class="project-card">
-        <h3>Student Record System</h3>
-        <p>Java-based CRUD system for managing student data with a simple UI.</p>
+  <section id="skills">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag">02</span><span class="sec-title">skills.schema</span></div>
+      <div class="schema">
+        <div class="schema-row">
+          <div class="schema-key">languages</div>
+          <div class="schema-val"><span class="chip">Java</span><span class="chip">Python</span><span class="chip">SQL</span><span class="chip">JavaScript</span><span class="chip">HTML/CSS</span></div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-key">backend</div>
+          <div class="schema-val"><span class="chip">Spring Boot</span><span class="chip">Spring MVC</span><span class="chip">Spring Security</span><span class="chip">JWT</span><span class="chip">Hibernate</span><span class="chip">JPA</span><span class="chip">JDBC</span><span class="chip">Microservices</span></div>
+        </div>
+        <div class="schema-key" style="display:none"></div>
+        <div class="schema-row">
+          <div class="schema-key">core cs</div>
+          <div class="schema-val"><span class="chip">OOP</span><span class="chip">Collections</span><span class="chip">Multithreading</span><span class="chip">Exception Handling</span></div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-key">tools &amp; cloud</div>
+          <div class="schema-val"><span class="chip">Git</span><span class="chip">GitHub</span><span class="chip">Maven</span><span class="chip">Postman</span><span class="chip">Docker (Basic)</span><span class="chip">AWS (Basic)</span></div>
+        </div>
+        <div class="schema-row">
+          <div class="schema-key">database</div>
+          <div class="schema-val"><span class="chip">MySQL</span></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section class="contact" id="contact">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:youremail@example.com">ankit.t9099@gmail.com</a></p>
-    <p>GitHub: <a href="https://github.com/yourusername" target="_blank">Tiwarianky</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/yourprofile" target="_blank">https://www.linkedin.com/in/ankit-tiwari-a37520249/a></p>
+  <section id="experience">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag">03</span><span class="sec-title">experience.log</span></div>
+      <div class="log">
+        <div class="log-entry">
+          <div class="log-hash">commit a1f9c2e — Jan 2026 → Jun 2026</div>
+          <div class="log-title">Java Developer Intern, Medshine Soft Pvt. Ltd.</div>
+          <div class="log-meta">Hybrid</div>
+          <ul>
+            <li>Developed and maintained backend services in Java and Spring Boot supporting inventory and order management operations.</li>
+            <li>Designed and implemented 8+ RESTful APIs, improving data accessibility and integration across internal systems.</li>
+            <li>Designed and optimized MySQL schemas, improving retrieval efficiency and data consistency.</li>
+            <li>Collaborated with the dev team using Git and GitHub for version control, code review, and feature integration.</li>
+            <li>Identified and resolved backend bugs and performance bottlenecks, improving application stability.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
   </section>
 
-  <footer>
-    <p>© 2025 Ankit Tiwari</p>
+  <section id="projects">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag">04</span><span class="sec-title">projects.api</span></div>
+
+      <div class="endpoint">
+        <div class="endpoint-head">
+          <span class="method post">POST</span>
+          <span class="endpoint-path">/projects/e-grievance-system</span>
+          <span class="endpoint-status">● 200 OK</span>
+        </div>
+        <div class="endpoint-body">
+          <p>An online grievance redressal portal with role-based access for Citizens, Officials, and Admins — complaint registration, tracking, and resolution, built as a 4-member final-year project. Secure authentication and authorization enforced with Spring Security.</p>
+          <div class="stack-row">
+            <span class="chip">Spring Boot</span><span class="chip">JPA</span><span class="chip">MySQL</span><span class="chip">JSP</span><span class="chip">Spring Security</span>
+          </div>
+          <div class="endpoint-links">
+            <a href="https://github.com/Tiwarianky/egrievance-system" target="_blank" rel="noopener">View code →</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="endpoint">
+        <div class="endpoint-head">
+          <span class="method">GET</span>
+          <span class="endpoint-path">/projects/bank-management-system</span>
+          <span class="endpoint-status pending">● deploying</span>
+        </div>
+        <div class="endpoint-body">
+          <p>A banking application supporting account creation, deletion, and transaction processing — CRUD REST APIs backed by a MySQL database, built to model consistent, reliable financial data handling.</p>
+          <div class="stack-row">
+            <span class="chip">Spring Boot</span><span class="chip">JPA</span><span class="chip">MySQL</span><span class="chip">REST</span>
+          </div>
+          <div class="endpoint-links">
+            <span class="disabled">Code publishing soon</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="education">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag">05</span><span class="sec-title">education</span></div>
+      <div class="edu-card">
+        <div class="school">B.Tech, Computer Science &amp; Engineering</div>
+        <div class="meta">G H Raisoni University, Amravati &nbsp;·&nbsp; 2022 – 2026 &nbsp;·&nbsp; CGPA 8.50 / 10</div>
+      </div>
+      <div class="cert-list">
+        <div class="cert-item"><span class="badge">CERT</span> Java Full Stack Development — Soham Global</div>
+        <div class="cert-item"><span class="badge">SIM</span> Software Engineering Job Simulation — Forage</div>
+      </div>
+    </div>
+  </section>
+
+  <footer id="contact">
+    <div class="wrap">
+      <div class="sec-head"><span class="sec-tag">06</span><span class="sec-title">contact.env</span></div>
+      <div class="config">
+        <div class="config-line"><span class="c"># reach out — always open to opportunities</span></div>
+        <div class="config-line"><span class="k">EMAIL</span> = <span class="s">"ankit.t9099@gmail.com"</span></div>
+        <div class="config-line"><span class="k">PHONE</span> = <span class="s">"+91 95175 89789"</span></div>
+        <div class="config-line"><span class="k">LOCATION</span> = <span class="s">"Mumbai, Maharashtra, IN"</span></div>
+      </div>
+      <div class="footer-links">
+        <a href="mailto:ankit.t9099@gmail.com">Email</a>
+        <a href="https://linkedin.com/in/ankit-tiwari-a37520249" target="_blank" rel="noopener">LinkedIn</a>
+        <a href="https://github.com/Tiwarianky" target="_blank" rel="noopener">GitHub</a>
+      </div>
+      <div class="footer-note">Built by Ankit Tiwari · deployed with intent, not defaults.</div>
+    </div>
   </footer>
 
 </body>
